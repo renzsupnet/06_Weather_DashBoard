@@ -69,7 +69,7 @@ function displayResults(){
         row1.appendChild(title);
         row1.appendChild(description);
         const row2 = document.createElement('div');
-        resultBody.appendChild(row);
+        resultBody.appendChild(row1);
       }
     })
     .catch(function (error) {
