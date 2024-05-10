@@ -93,7 +93,7 @@ function displayResults(){
           <div class="card" data-bs-theme="dark">
           <div class="card-body">
             <h2 class="card-title">${data.list[i].dt_txt.slice(0, 10)}${weather}</h2>
-            <p class="card-text" style="white-space: pre;">Temp: ${data.list[i].main.temp}°F\nWind: ${data.list[i].wind.speed}MPH\nHumidity: ${data.list[0].main.humidity}%</p>
+            <h5 class="card-text" style="white-space: pre;">Temp: ${data.list[i].main.temp}°F\nWind: ${data.list[i].wind.speed}MPH\nHumidity: ${data.list[0].main.humidity}%</h5>
           </div>
         </div>
         </div>
