@@ -69,6 +69,8 @@ function displayResults(){
         row1.appendChild(title);
         row1.appendChild(description);
         const row2 = document.createElement('div');
+        row2.setAttribute('class', 'row-12 row-md-12 row-lg-12');
+        
         resultBody.appendChild(row1);
       }
     })
