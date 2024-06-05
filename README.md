@@ -4,6 +4,10 @@
 
 A challenge to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
 
+## Deployed Application Link
+
+[Check it live by clicking here](https://renzsupnet.github.io/06_Weather_DashBoard/)
+
 ## Goal
 
 - To be able to use localStorage to store persistent data 
