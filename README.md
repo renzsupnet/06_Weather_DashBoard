@@ -13,7 +13,8 @@ A challenge to build a weather dashboard that will run in the browser and featur
 
 ## Usage
 
-Either input a City in the search field or press one of the cities shown on the list to receive the weather forecast.
+Either input a City in the search field or press one of the cities shown on the list to receive the weather forecast. A previous city search list element
+will be dynamically created and updated as you search more cities up to a maximum of 8 cities.
 
 ## Screenshots
 
