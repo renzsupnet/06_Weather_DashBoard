@@ -4,6 +4,7 @@ let city;
 const formElement = document.getElementById('input_form');
 const API_Key = "52dac76407cc883132a49dead4a87d53";
 let queryUrl;
+const prevCitiesList = document.getElementById('prevCities');
 const resultBody = document.getElementById('resultContainer');
 
 // Initialize value of city according to localStorage
@@ -27,7 +28,25 @@ function handleListQuery(event){
 function handleFormQuery(event){
     event.preventDefault();
     resultBody.innerHTML = "";
-    localStorage.setItem('city', document.getElementById('cityInput').value);
+    city = document.getElementById('cityInput').value;
+    document.getElementById('cityInput').setAttribute('placeholder', "");
+    localStorage.setItem('city', city);
+    let temp = [city];
+    if(!localStorage.getItem('prevCities')){
+      localStorage.setItem('prevCities', JSON.stringify(temp));;
+    }
+    else{
+      const prevCities = JSON.parse(localStorage.getItem('prevCities'));
+      if(!prevCities.includes(city)){
+        console.log(prevCities);
+        // Limit prevCities to 8 in order to prevent overpopulation of list element
+        if(prevCities.length === 8){
+          prevCities.pop();
+        }
+        prevCities.push(city);
+        localStorage.setItem('prevCities', JSON.stringify(prevCities));
+    }
+  }
     initCity();
     displayResults();
 }
@@ -118,6 +137,9 @@ function displayResults(){
         // Append the rows to the parent element in order to display the results
         resultBody.appendChild(row1);
         resultBody.appendChild(row2);
+        // Update prevCities
+        displayPrevCities();
+
       }
     })
     .catch(function (error) {
@@ -125,7 +147,32 @@ function displayResults(){
     });
 }
 
+function displayPrevCities(){
+          //Create previous cities list
+          const prevCitiesItems = JSON.parse(localStorage.getItem('prevCities'));
+          let listItem;
+          //Make sure past cities list is reverted to an empty html element to avoid duplication
+          prevCitiesList.innerHTML = "";
+          for(prevCity of prevCitiesItems){
+            listItem = document.createElement('li');
+            listItem.setAttribute('class', 'list-group-item list-group-item-dark my-3');
+            listItem.setAttribute('type', 'button');
+            listItem.innerHTML = `<b>${prevCity}</b>`;
+            prevCitiesList.appendChild(listItem);
+          }
+}
+
 
 // Attaches Event Listeners
 ulElement.addEventListener('click', handleListQuery);
 formElement.addEventListener('submit', handleFormQuery);
+
+window.addEventListener('load', (event) => {
+  // Check localStorage onload if previous cities have been already been searched before and if so display the previous cities list element
+  if(localStorage.getItem('prevCities')){
+    displayPrevCities();
+  }
+  // Reset input value field and re-initialize placeholder whenever the site reloads to prevent  input field from persistently displaying last input value
+  document.getElementById('cityInput').value = "";
+  document.getElementById('cityInput').setAttribute('placeholder', "Type city here");
+});
